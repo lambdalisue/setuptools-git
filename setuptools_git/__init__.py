@@ -28,7 +28,10 @@ def version_calc(dist, attr, value):
 
 
 def calculate_version():
-    return check_output(['git', 'describe', '--tags', '--dirty']).strip()
+    output = check_output(['git', 'describe', '--tags', '--dirty'])
+    if sys.version_info >= (3,):
+        output = output.decode('utf-8')
+    return output.strip()
 
 
 def ntfsdecode(path):
